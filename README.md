@@ -29,4 +29,4 @@ $nome_banco = 'nome_do_banco.sqlite';
 php -S localhost:8000
 ```
 
-7. Clique no botão de notificação “Abrir no navegador” que aparece quando a porta é exposta ou use a aba `PORTAS` para abrir o link da porta `8000`.
+7. Clique no botão de notificação “Abrir no navegador” que aparece quando a porta é exposta ou use a aba `PORTAS` para abrir o link da porta `8000` clicando no ícone do globo.
