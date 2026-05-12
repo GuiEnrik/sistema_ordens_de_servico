@@ -6,7 +6,7 @@
 2. Crie o arquivo do banco de dados SQLite com o nome desejado. Por exemplo:
 
 ```bash
-sqlite3 nome_do_banco.db
+sqlite3 nome_do_banco.sqlite
 ```
 
 3. Dentro do prompt do SQLite, crie as tabelas necessárias usando comandos DDL. 
@@ -20,7 +20,7 @@ sqlite3 nome_do_banco.db
 5. Abra o arquivo `conecta.php` e configure a variável `$nome_banco` com o nome do arquivo do banco criado:
 
 ```php
-$nome_banco = 'nome_do_banco.db';
+$nome_banco = 'nome_do_banco.sqlite';
 ```
 
 6. Execute o servidor PHP embutido:
