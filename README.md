@@ -2,29 +2,84 @@
 
 ## Objetivo da atividade
 
-Este projeto utiliza **PHP, PDO e MySQL**.
+Este projeto utiliza **PHP, PDO e MySQL** em um ambiente preparado para **GitHub Codespaces**.
 
 O objetivo é que os alunos criem o banco de dados e toda a sua estrutura a partir da análise do código PHP existente.
 
 O sistema possui funcionalidades para cadastro de clientes, técnicos e ordens de serviço. As tabelas, campos, tipos de dados, chaves e relacionamentos necessários **não são criados automaticamente pelo projeto**.
 
+## Estrutura do projeto
+
+A aplicação está dentro da pasta:
+
+```text
+htdocs/
+```
+
+Estrutura principal:
+
+```text
+.devcontainer/
+htdocs/
+    index.php
+    conecta.php
+    cliente.php
+    tecnico.php
+    ordem_servico.php
+README.md
+```
+
+## Usando o GitHub Codespaces
+
+1. No GitHub, clique em **Code**.
+2. Abra a aba **Codespaces**.
+3. Clique em **Create codespace on main**.
+4. Aguarde o ambiente abrir no VS Code pelo navegador.
+
+O Codespaces já prepara:
+
+- PHP 8.2;
+- Apache;
+- PDO para MySQL;
+- servidor de banco compatível com MySQL;
+- phpMyAdmin;
+- extensões úteis do VS Code.
+
+O Apache publica automaticamente os arquivos da pasta `htdocs`.
+
+## Acessando a aplicação e o phpMyAdmin
+
+No Codespaces, abra a porta **80** na aba **Ports**.
+
+A URL principal abre o sistema.
+
+Para acessar o phpMyAdmin, acrescente:
+
+```text
+/phpmyadmin
+```
+
+ao final da URL da porta 80.
+
+No phpMyAdmin, use:
+
+```text
+Usuário: root
+Senha: deixe em branco
+```
+
 ## Preparação do banco de dados
 
-1. Inicie o MySQL pelo ambiente utilizado em aula, como XAMPP, WAMP ou outro servidor MySQL.
-
-2. Acesse o phpMyAdmin.
-
-3. Abra a área de comandos SQL.
-
-4. Crie um banco de dados com o nome:
+1. Acesse o phpMyAdmin.
+2. Abra a área de comandos SQL.
+3. Crie um banco de dados com o nome:
 
 ```text
 sistema_ordens_servico
 ```
 
-5. Depois de criar o banco, selecione-o no menu lateral do phpMyAdmin.
-
-6. Analise os arquivos PHP deste projeto para identificar e criar:
+4. Depois de criar o banco, selecione-o no menu lateral do phpMyAdmin.
+5. Analise os arquivos PHP da pasta `htdocs` para identificar e criar:
 
    - as tabelas necessárias;
    - os campos de cada tabela;
@@ -39,9 +94,9 @@ sistema_ordens_servico
 
 Os principais arquivos são:
 
-- `cliente.php`
-- `tecnico.php`
-- `ordem_servico.php`
+- `htdocs/cliente.php`
+- `htdocs/tecnico.php`
+- `htdocs/ordem_servico.php`
 
 Observe principalmente os comandos SQL presentes nesses arquivos, como:
 
@@ -53,39 +108,24 @@ Observe principalmente os comandos SQL presentes nesses arquivos, como:
 
 Esses comandos fornecem as informações necessárias para descobrir a estrutura esperada pelo sistema.
 
-## Conexão com o MySQL
+## Conexão com o banco
 
-O arquivo `conecta.php` já está configurado para tentar acessar o banco:
+O arquivo:
 
 ```text
-sistema_ordens_servico
+htdocs/conecta.php
 ```
 
-A configuração padrão considera:
+já está configurado para acessar:
 
 ```text
+Banco: sistema_ordens_servico
 Servidor: localhost
 Usuário: root
 Senha: vazia
 ```
 
-Caso o ambiente utilizado em aula tenha usuário ou senha diferentes, ajuste apenas essas informações no arquivo `conecta.php`.
-
-## Executando o projeto
-
-Depois de criar corretamente o banco e suas tabelas, execute o projeto no servidor PHP utilizado em aula.
-
-Também é possível usar o servidor embutido do PHP:
-
-```bash
-php -S localhost:8000
-```
-
-Depois acesse:
-
-```text
-http://localhost:8000
-```
+O ambiente do Codespaces já utiliza essa mesma configuração.
 
 ## Teste da estrutura criada
 
