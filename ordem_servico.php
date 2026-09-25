@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_GET['numero'])) {
         ':problema' => $_POST['campo_problema'],
         ':solucao' => $_POST['campo_solucao'],
         ':abertura' => $_POST['campo_abertura'],
-        ':fechamento' => $_POST['campo_fechamento'],
+        ':fechamento' => !empty($_POST['campo_fechamento']) ? $_POST['campo_fechamento'] : null,
         ':cliente' => $_POST['campo_cliente'],
         ':tecnico' => $_POST['campo_tecnico']
     ]);
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['numero'])) {
         ':problema' => $_POST['campo_problema'],
         ':solucao' => $_POST['campo_solucao'],
         ':abertura' => $_POST['campo_abertura'],
-        ':fechamento' => $_POST['campo_fechamento'],
+        ':fechamento' => !empty($_POST['campo_fechamento']) ? $_POST['campo_fechamento'] : null,
         ':cliente' => $_POST['campo_cliente'],
         ':tecnico' => $_POST['campo_tecnico'],
         ':numero' => $_GET['numero']
