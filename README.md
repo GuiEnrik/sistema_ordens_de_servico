@@ -132,7 +132,7 @@ htdocs/conecta.php
 já está configurado para acessar:
 
 ```text
-Servidor: localhost
+Servidor: 127.0.0.1 (localhost)
 Usuário: root
 Senha: vazia
 ```
