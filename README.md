@@ -56,7 +56,7 @@ A URL principal abre o sistema.
 Para acessar o phpMyAdmin, acrescente:
 
 ```text
-/phpmyadmin
+/phpmyadmin/
 ```
 
 ao final da URL da porta 80.
@@ -79,34 +79,47 @@ sistema_ordens_servico
 ```
 
 4. Depois de criar o banco, selecione-o no menu lateral do phpMyAdmin.
-5. Analise os arquivos PHP da pasta `htdocs` para identificar e criar:
+5. Crie a estrutura abaixo necessária para a aplicação PHP em `htdocs/`, considerando as consultas e operações de `cliente.php`, `tecnico.php` e `ordem_servico.php`.
 
-   - as tabelas necessárias;
-   - os campos de cada tabela;
-   - os tipos de dados adequados;
-   - as chaves primárias;
-   - as chaves estrangeiras;
-   - os relacionamentos entre as tabelas;
-   - os campos que devem aceitar valores nulos;
-   - o campo que deve gerar automaticamente o número da ordem de serviço.
+Banco utilizado pela aplicação: `sistema_ordens_servico` (MySQL/MariaDB).
 
-## Arquivos para análise
+### Tabela `cliente`
 
-Os principais arquivos são:
+| Coluna | Tipo sugerido | Restrições (constraints) | Finalidade |
+|---|---|---|---|
+| `cliente_cpf` | `VARCHAR(14)` | **PRIMARY KEY**, **NOT NULL** | CPF do cliente; texto para preservar zeros à esquerda e permitir pontuação. |
+| `nome` | `VARCHAR(150)` | **NOT NULL** | Nome do cliente. |
+| `endereco` | `VARCHAR(255)` | **NOT NULL** | Endereço do cliente. |
+| `telefone` | `VARCHAR(20)` | **NOT NULL** | Telefone; texto para permitir DDD, espaços, parênteses e hífen. |
 
-- `htdocs/cliente.php`
-- `htdocs/tecnico.php`
-- `htdocs/ordem_servico.php`
+### Tabela `tecnico`
 
-Observe principalmente os comandos SQL presentes nesses arquivos, como:
+| Coluna | Tipo sugerido | Restrições (constraints) | Finalidade |
+|---|---|---|---|
+| `tecnico_matricula` | `VARCHAR(20)` | **PRIMARY KEY**, **NOT NULL** | Matrícula do técnico; texto para aceitar letras e zeros à esquerda. |
+| `nome` | `VARCHAR(150)` | **NOT NULL** | Nome do técnico. |
+| `endereco` | `VARCHAR(255)` | **NOT NULL** | Endereço do técnico. |
+| `telefone` | `VARCHAR(20)` | **NOT NULL** | Telefone do técnico. |
+| `nivel_escolaridade` | `VARCHAR(80)` | **NOT NULL** | Nível de escolaridade. |
 
-- `INSERT`
-- `SELECT`
-- `UPDATE`
-- `DELETE`
-- `JOIN`
+### Tabela `ordem_servico`
 
-Esses comandos fornecem as informações necessárias para descobrir a estrutura esperada pelo sistema.
+| Coluna | Tipo sugerido | Restrições (constraints) | Finalidade |
+|---|---|---|---|
+| `numero` | `INT UNSIGNED` | **PRIMARY KEY**, **AUTO_INCREMENT**, **NOT NULL** | Identificador único da ordem de serviço, gerado pelo banco. |
+| `problema` | `TEXT` | **NOT NULL** | Descrição do problema relatado. |
+| `solucao_problema` | `TEXT` | Pode ser **NULL** | Solução registrada; pode ficar vazia enquanto a ordem estiver em aberto. |
+| `data_abertura` | `DATE` | **NOT NULL** | Data de abertura da ordem. |
+| `data_fechamento` | `DATE` | Pode ser **NULL** | Data de fechamento; nula enquanto não houver fechamento. |
+| `cliente_cpf` | `VARCHAR(14)` | **NOT NULL**, **FOREIGN KEY** → `cliente(cliente_cpf)` | Cliente associado à ordem. |
+| `tecnico_matricula` | `VARCHAR(20)` | **NOT NULL**, **FOREIGN KEY** → `tecnico(tecnico_matricula)` | Técnico responsável pela ordem. |
+
+### Relacionamentos
+
+- **Cliente 1:N Ordem de Serviço** — um cliente pode possuir várias ordens; cada ordem pertence a um cliente.
+- **Técnico 1:N Ordem de Serviço** — um técnico pode ser responsável por várias ordens; cada ordem referencia um técnico.
+- `ordem_servico.cliente_cpf` referencia `cliente.cliente_cpf`.
+- `ordem_servico.tecnico_matricula` referencia `tecnico.tecnico_matricula`.
 
 ## Conexão com o banco
 
@@ -119,11 +132,12 @@ htdocs/conecta.php
 já está configurado para acessar:
 
 ```text
-Banco: sistema_ordens_servico
 Servidor: localhost
 Usuário: root
 Senha: vazia
 ```
+
+Bastando apenas especificar na variável `$banco` o nome banco de dados criado: **sistema_ordens_servico**
 
 O ambiente do Codespaces já utiliza essa mesma configuração.
 
